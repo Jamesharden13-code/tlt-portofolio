@@ -1,6 +1,9 @@
 {
   "name": "portfolio-astro",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "version": "0.0.1",
   "scripts": {
     "format": "prettier --write . --ignore-unknown",
