@@ -1,10 +1,16 @@
 ---
 import { defaultLanguage, type LanguageCode } from '@/i18n/ui';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import logoTlt from '../assets/tlt-logo.png'
 const currentLocale =
   (Astro.currentLocale as LanguageCode | undefined) ?? defaultLanguage;
 ---
 
 <a href={getRelativeLocaleUrl(currentLocale)}>
-  <span class="text-2xl font-bold text-primary"> Your Logo </span>
+  <!-- <span class="text-2xl font-bold text-primary"> TLT </span> -->
+  <img
+    src={logoTlt.src}
+    alt="Logo TLT"
+    class="h-20 w-auto"
+  >
 </a>

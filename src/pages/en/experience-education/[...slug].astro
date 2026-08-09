@@ -1,0 +1,88 @@
+---
+import { BlogPostDetailScreen } from '@/features/blog';
+import { type LanguageCode } from '@/i18n/ui';
+import { getCollection, getEntries, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+let lang = 'en' as LanguageCode;
+
+console.log("=== ANGLAIS ===");
+
+export async function getStaticPaths() {
+  //const blogEntries = await getCollection('blog', ({ data }) => {
+    //return data.isDraft !== true;
+    const blogEntries = await getCollection('blog', ({ data }) => data.isDraft !== true && data.lang === 'en');
+    console.log('BLOG ENTREE: ' + blogEntries)
+  // On ne garde ici que les fichiers qui concernent l'anglais
+  const englishEntries = blogEntries.filter(post => post.id.endsWith('en') || post.id.includes('en'));
+
+  return englishEntries.map((post) => {
+    const cleanSlug = post.id.replace(/en$/, '');
+    //const cleanSlug = post.id.replace(/\.en$/, '').replace(/en$/, '');
+    const finalSlugForUrl = `${cleanSlug}.en`;
+    //console.log("FINAL SLUG FOR URL :  " + finalSlugForUrl)
+    return {
+      params: { slug: finalSlugForUrl },
+      //params: { slug: cleanSlug },
+      props: { post, cleanSlug },
+    }
+  });
+}
+
+// const { post } = Astro.props;
+
+const { post, cleanSlug } = Astro.props;
+
+let translatedUrl = `/experience-formation/${cleanSlug}/`;
+translatedUrl = translatedUrl.replace(/\/+/g, '/');
+//translatedUrl = '/' + translatedUrl.split('/').filter(Boolean).join('/') + '/';
+
+
+console.log("=== CHECK TRADUCTION DETAIL ===");
+console.log("CLEAN SLUG :", cleanSlug);
+console.log("URL de l'article actuel :", Astro.url.pathname);
+console.log("URL envoyée au bouton de langue :", translatedUrl);
+console.log("POST ID: ", post.id)
+
+
+const baseRelatedPosts = post.data.relatedPosts
+  ? await getEntries(post.data.relatedPosts)
+  : [];
+
+const enrichedRelatedPostsPromises = baseRelatedPosts.map(
+  async (relatedEntry) => {
+    if (!relatedEntry) return null;
+    const { remarkPluginFrontmatter: relatedFm } = await render(relatedEntry);
+    return {
+      id: relatedEntry.id,
+      slug: relatedEntry.id,
+      collection: relatedEntry.collection,
+      data: {
+        ...relatedEntry.data,
+        readingTimeMinutes: relatedFm.readingTimeMinutes,
+      },
+    };
+  }
+);
+const finalRelatedPosts = (
+  await Promise.all(enrichedRelatedPostsPromises)
+).filter((p) => p !== null);
+
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+
+<!-- <BaseLayout pageTitle={post.id} translatedUrl={translatedUrl}> -->
+ <BaseLayout pageTitle={post.data.title} translatedUrl={translatedUrl}>
+  <BlogPostDetailScreen
+    post={{
+      ...post.data,
+      readingTimeMinutes: remarkPluginFrontmatter.readingTimeMinutes,
+    }}
+    lang={lang}
+    relatedPosts={finalRelatedPosts}
+    filePath={post.filePath ? post.filePath : ''}
+    translatedUrl={translatedUrl}
+  >
+    <Content />
+  </BlogPostDetailScreen>
+</BaseLayout>

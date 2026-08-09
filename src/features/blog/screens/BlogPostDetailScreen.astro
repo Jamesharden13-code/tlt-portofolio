@@ -17,9 +17,10 @@ type Props = {
   lang: LanguageCode;
   relatedPosts: Array<CollectionEntry<'blog'>>;
   filePath: string;
+  translatedUrl?: string;
 };
 
-const { post, lang, relatedPosts, filePath } = Astro.props;
+const { post, lang, relatedPosts, filePath, translatedUrl } = Astro.props;
 
 // Construct the GitHub edit URL
 const GITHUB_USER = 'YOUR_GITHUB_USERNAME';
@@ -34,12 +35,14 @@ const t = useTranslations(lang, 'blogPost');
 
 const pageTitle = post.title;
 const pageDescription = post.description;
+
 ---
 
-<BaseLayout {pageTitle} {pageDescription}>
+{/* 3. ON PASSE TRANSLATEDURL AU BASELAYOUT */}
+<!-- <BaseLayout {pageTitle} {pageDescription} {translatedUrl}> -->
   <article class="container mx-auto px-4 py-8 md:py-12 max-w-3xl">
     <a
-      href={getRelativeLocaleUrl(lang, '/blog')}
+      href={getRelativeLocaleUrl(lang, '/experience-formation')}
       class={buttonVariants({ variant: 'ghost' }) + ' mb-6 no-underline'}
     >
       <ArrowLeft className="mr-2 size-4" />
@@ -51,10 +54,10 @@ const pageDescription = post.description;
       <div
         class="mt-3 flex items-center justify-between text-sm text-muted-foreground"
       >
-        <p class="flex items-center gap-1">
+        {/* <p class="flex items-center gap-1">
           <b>{t('publishedOn')}</b>
-          <span>{formatDate(pubDate, lang)}</span>
-        </p>
+            <span>{formatDate(pubDate, lang)}</span>
+        </p> */}
         <p class="flex items-center gap-1">
           {
             updatedDate ? (
@@ -66,10 +69,10 @@ const pageDescription = post.description;
           }
         </p>
 
-        <p class="flex items-center">
+        {/* <p class="flex items-center">
           <Clock className="mr-1.5 size-4 flex-shrink-0" />
           <span>{post.readingTimeMinutes} {t('readingTimeSuffix')}</span>
-        </p>
+        </p> */}
       </div>
 
       {
@@ -100,7 +103,7 @@ const pageDescription = post.description;
       <slot />
 
       <div class="flex justify-end">
-        <a
+        {/* <a
           href={editUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -108,7 +111,7 @@ const pageDescription = post.description;
         >
           <Pencil className=" size-4" />
           {t('editOnGithub') || 'Proposer une modification sur GitHub'}
-        </a>
+        </a> */}
       </div>
     </div>
 
@@ -129,4 +132,4 @@ const pageDescription = post.description;
       ) : null
     }
   </article>
-</BaseLayout>
+<!-- </BaseLayout> -->

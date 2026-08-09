@@ -5,8 +5,10 @@ import { buttonVariants } from '@/components/ui/button';
 import type { LanguageCode } from '@/i18n/ui';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { Calendar, Dumbbell } from 'lucide-react';
-
-import heroImage from '@/assets/user-hero.webp';
+import {useState} from 'react'; 
+import {allProjects} from '../projectDetails';
+import { ui } from '@/i18n/ui';
+import heroImage from '@/assets/IMG-CV.jpg';
 import { Image } from 'astro:assets';
 import FeaturedProjectPreview from '../components/FeaturedProjectPreview.astro';
 import type { TranslatedProject, TranslatedSkill } from '../type';
@@ -46,6 +48,7 @@ const {
   mySkillsDescription,
   projectPreviewCtaText,
 } = Astro.props;
+
 ---
 
 <section class="py-12 md:py-16">
@@ -53,20 +56,20 @@ const {
     {/* Hero Text Column */}
     <div class="text-center md:text-left">
       <h1
-        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
+        class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
       >
         {heroGreeting}
       </h1>
-      <p class="text-2xl md:text-3xl font-medium text-muted-foreground mb-2">
+      <p class="hero-subtitle text-2xl md:text-3xl font-medium text-muted-foreground mb-2">
         <span>{heroSubtitlePart1}</span>
         <span class="text-primary"> | </span>
         <span>{heroSubtitlePart2}</span>
       </p>
-      <p class="text-lg text-muted-foreground mb-8">
+      <p class="hero-intro text-lg text-muted-foreground mb-8">
         {heroIntroduction}
       </p>
       <div
-        class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+        class="hero-button flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
       >
         <a
           href="/projects"
@@ -86,19 +89,18 @@ const {
     </div>
 
     {/* Hero Image (Placeholder for now) */}
-    <div class="md:text-center">
+    <div class="md:text-center flex justify-center">
       <div
-        class="md:w-[600px] w-full h-92 bg-muted rounded-lg shadow-xl overflow-hidden"
-      >
+        class="hero-image h-64 w-64 md:w-80 md:h-80 rounded-full shadow-xl overflow-hidden border-4 border-muted">
         <Image
           src={heroImage}
           alt={'User profile image'}
-          width={600}
-          height={368}
+          width={400}
+          height={400}
           densities={[1, 1.5, 2]}
-          quality="high"
+          quality="max"
           class="h-full w-full object-cover"
-          style="object-position: center 28%;"
+          style="object-position: center 20%;"
         />
       </div>
     </div>
@@ -107,24 +109,30 @@ const {
 
 {/* Featured Projects Section */}
 <section id="projects" class="py-12 md:py-16 bg-muted/20 dark:bg-muted/10">
-  <Heading
-    title={featuredProjectsTitle}
-    description={featuredProjectsDescription}
-    className="flex flex-col items-center"
-  />
+  <div class="projects-heading">
+    <Heading
+      title={featuredProjectsTitle}
+      description={featuredProjectsDescription}
+      className="flex flex-col items-center"
+    />
+  </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {/* Project One*/}
+  {/*  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> */}
+  <div class="hero-image grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {
       projects.slice(0, 3).map((project: TranslatedProject) => {
         return (
-          <FeaturedProjectPreview
-            lang={lang}
-            slug={project.slug}
-            title={project.title}
-            imageUrl={project.imageUrl}
-            imageAltText={project.imageAltText}
-            ctaText={projectPreviewCtaText}
-          />
+          <div class="project-card">
+            <FeaturedProjectPreview
+                lang={lang}
+                slug={project.slug}
+                title={project.title}
+                imageUrl={project.imageUrl}
+                imageAltText={project.imageAltText}
+                ctaText={projectPreviewCtaText}
+            />
+          </div>
         );
       })
     }
@@ -134,22 +142,104 @@ const {
 {/* Skills Section */}
 <section id="skills" class="py-12 md:py-16">
   <div class="container mx-auto px-4">
-    <Heading
-      title={mySkillsTitle}
-      description={mySkillsDescription}
-      className="flex flex-col items-center"
-    />
+    <div class="skills-heading">
+       <Heading
+          title={mySkillsTitle}
+          description={mySkillsDescription}
+          className="flex flex-col items-center"
+        />
+    </div>  
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         skills.map((skill) => (
-          <SkillCard
-            title={skill.title}
-            description={skill.description}
-            iconName={skill.iconName}
-            technologies={skill.technologies}
-          />
+          <div class="skill-card">
+            <SkillCard
+              title={skill.title}
+              description={skill.description}
+              iconName={skill.iconName}
+              technologies={skill.technologies}
+            />
+          </div>
         ))
       }
     </div>
   </div>
 </section>
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Fonction qui contient toutes vos animations
+  function initAnimations() {
+    // 1. Nettoyer les anciens ScrollTriggers pour éviter les doublons/bugs mémoire
+    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+
+    // 2. Animation Hero
+    const heroTl = gsap.timeline({ defaults: { duration: 1.2, ease: 'power2.out' } });
+
+    heroTl
+      .from('.hero-title', { y: 30, opacity: 0, delay: 0.4 })
+      .from('.hero-subtitle', { y: 20, opacity: 0 }, '-=0.3')
+      .from('.hero-intro', { y: 20, opacity: 0 }, '-=0.3')
+      .from('.hero-button', { y: 20, opacity: 0 }, '-=0.3')
+      .from('.hero-image', { scale: 0.8, opacity: 0, duration: 1, ease: 'back.out(1.7)' }, '-=0.6');
+
+
+    if (document.querySelector('.projects-heading')) {
+      gsap.from('.projects-heading', {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      });
+    }
+
+    // 3. Animation Projets
+    if (document.querySelector('#projects')) {
+      gsap.from('.project-card', {
+        scrollTrigger: {
+          trigger: '#projects',
+          start: 'top 85%',
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: 'power3.out',
+      });
+    }
+
+     if (document.querySelector('.skills-heading')) {
+      gsap.from('.skills-heading', {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power3.out',
+      });
+    }
+
+
+    // 4. Animation Skills
+    if (document.querySelector('#skills')) {
+      gsap.from('.skill-card', {
+        scrollTrigger: {
+          trigger: '#skills',
+          start: 'top 80%',
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power3.out',
+      });
+    }
+
+    // 5. Recalculer les positions de ScrollTrigger après le rendu du DOM
+    ScrollTrigger.refresh();
+  }
+
+  // S'exécute au premier chargement ET à chaque navigation Astro
+  document.addEventListener('astro:page-load', initAnimations);
+</script>

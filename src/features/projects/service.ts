@@ -1,6 +1,32 @@
 // Import i18n utilities
 import { ui, defaultLanguage, type LanguageCode } from '@/i18n/ui';
 import placeholderImage from '@/assets/placeholder.webp';
+import mielImg from '@/assets/miel-logo.png'
+import mielImgTwo from '@/assets/miel.png'
+import mielImgThree from '@/assets/miel-img.png'
+import mielImgFour from '@/assets/miel-img-five.png'
+import mielImgFive from '@/assets/miel-img-six.png'
+import mielImgSix from '@/assets/miel-img-four.png'
+import mielMobile from '@/assets/miel-img-nine.png'
+import osrImg from '@/assets/5asec.png'
+import osrImgOne from '@/assets/osr-img-three.png'
+import osrImgTwo from '@/assets/osr-img-log.png'
+import osrImgThree from '@/assets/osr-cmd.png'
+import osrImgFour from '@/assets/osiris-four.png'
+import osrImgFive from '@/assets/osr-cmd-two.png'
+import logoTaxi from '@/assets/logo.png'
+import taxiOne from '@/assets/taxi-one.png'
+import taxiTwo from '@/assets/taxi-two.png'
+import taxiThree from '@/assets/taxi-three.png'
+import taxiFour from '@/assets/taxi-four.png'
+import taxiFive from '@/assets/taxi-five.png'
+import logoAgbc from '@/assets/logoAgbc-two.png'
+import imgAgbc from '@/assets/agbc-one.png'
+import imgAgbcTwo from '@/assets/agbc-two.png'
+import imgAgbcThree from '@/assets/agbc-three.png'
+import imgAgbcFour from '@/assets/agbc-four.png'
+import imgAgbcFive from '@/assets/agbc-login.png'
+
 import type {
   ProjectData,
   SkillData,
@@ -10,29 +36,201 @@ import type {
 
 const projectsListUnsorted: Array<ProjectData> = [
   {
-    id: 'sampleProject', // Unique identifier for translations
-    slug: 'sample-project', // Used in the URL
-    imageUrl: placeholderImage, // Use imported ImageMetadata
+    id: 'agbc', // Unique identifier for translations
+    slug: 'AGBC', // Used in the URL
+    imageUrl: logoAgbc, // Use imported ImageMetadata
     // projectUrl: '#', // Optional: Link to the live project
     // codeUrl: '#', // Optional: Link to the source code
-    tags: ['Astro', 'TypeScript', 'Template'], // Generic tags
-    category: 'Web Application', // Generic category
-    date: '2025-01-01', // Generic date
+    tags: ['React Native', 'TypeScript', 'Django'], // Generic tags
+    category: 'Mobile Application', // Generic category
+    date: '2026-03-01', // Generic date
+    progression: 'En cours',
+    evolution: '2026',
     galleryImages: [
       // Optional: Gallery images for the project
-      // {
-      //   id: 'sampleGalleryImage1',
-      //   src: placeholderImage, // Placeholder, needs ImageMetadata
-      // },
+      {
+        id: 'sampleGalleryImage1',
+        src: imgAgbc, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage2',
+        src: imgAgbcTwo, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage3',
+        src: imgAgbcThree, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage4',
+        src: imgAgbcFour, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage5',
+        src: imgAgbcFive, // Placeholder, needs ImageMetadata
+      },
     ],
     keyFeatures: [
       // Key features (IDs for translation)
-      { id: 'responsiveDesign' },
-      { id: 'contentManagement' },
+      { id: 'taskProject' },
+      { id: 'taskProjectTwo'},
+      { id: 'taskProjectThree' },
+      { id: 'taskProjectFour' }
     ],
     technologiesUsed: [
       // Technologies used (IDs for display)
       { id: 'astro', name: 'Astro' },
+      { id: 'typescript', name: 'TypeScript' },
+      { id: 'tailwindcss', name: 'TailwindCSS' },
+    ],
+  },
+  {
+    id: 'mielMontet', // Unique identifier for translations
+    slug: 'Miel Montet', // Used in the URL
+    imageUrl: mielImg, // Use imported ImageMetadata
+    // projectUrl: '#', // Optional: Link to the live project
+    // codeUrl: '#', // Optional: Link to the source code
+    tags: ['Wordpress'], // Generic tags
+    category: 'Web Application', // Generic category
+    date: '2025-01-01', // Generic date
+    progression: 'Terminé',
+    evolution: '2024',
+    galleryImages: [
+      // Optional: Gallery images for the project
+      {
+        id: 'sampleGalleryImage1',
+        src: mielImgTwo, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage2',
+        src: mielImgThree, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage3',
+        src: mielImgFour, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage4',
+        src: mielImgFive, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage5',
+        src: mielImgSix, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage6',
+        src: mielMobile, // Placeholder, needs ImageMetadata
+      },
+    ],
+    keyFeatures: [
+      // Key features (IDs for translation)
+      { id: 'taskProject' },
+      { id: 'taskProjectTwo'},
+      { id: 'taskProjectThree' },
+      { id: 'taskProjectFour' },
+      { id: 'taskProjectFive' },
+    ],
+    technologiesUsed: [
+      // Technologies used (IDs for display)
+      { id: 'astro', name: 'Astro' },
+      { id: 'typescript', name: 'TypeScript' },
+      { id: 'tailwindcss', name: 'TailwindCSS' },
+    ],
+  },
+  {
+    id: 'osr', // Unique identifier for translations
+    slug: 'Osiris', // Used in the URL
+    imageUrl: osrImg  , // Use imported ImageMetadata
+    // projectUrl: '#', // Optional: Link to the live project
+    // codeUrl: '#', // Optional: Link to the source code
+    tags: ['Next Js', 'Docker', 'Symfony'], // Generic tags
+    category: 'Web Application', // Generic category
+    date: '2025-01-01', // Generic date
+    progression: 'Terminé',
+    evolution: '2024',
+    galleryImages: [
+      // Optional: Gallery images for the project
+      {
+        id: 'sampleGalleryImage1',
+        src: osrImgOne, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage2',
+        src: osrImgTwo, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage3',
+        src: osrImgThree, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage4',
+        src: osrImgFour, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage5',
+        src: osrImgFive, // Placeholder, needs ImageMetadata
+      },
+    ],
+    keyFeatures: [
+      // Key features (IDs for translation)
+      { id: 'taskProject' },
+      { id: 'taskProjectTwo' },
+      { id: 'taskProjectThree' },
+      { id: 'taskProjectFour' },
+      { id: 'taskProjectFive' },
+      { id: 'taskProjectSix' },
+    ],
+    technologiesUsed: [
+      // Technologies used (IDs for display)
+      { id: 'astro', name: 'Astro' },
+      { id: 'typescript', name: 'TypeScript' },
+      { id: 'tailwindcss', name: 'TailwindCSS' },
+    ],
+  },
+  {
+    id: 'taxi', // Unique identifier for translations
+    slug: 'Taxi finder', // Used in the URL
+    imageUrl: logoTaxi  , // Use imported ImageMetadata
+    // projectUrl: '#', // Optional: Link to the live project
+    // codeUrl: '#', // Optional: Link to the source code
+    tags: ['React Native'], // Generic tags
+    category: 'Web Application', // Generic category
+    date: '2025-01-01', // Generic date
+    progression: 'Terminé',
+    evolution: '2023',
+    galleryImages: [
+      // Optional: Gallery images for the project
+      {
+        id: 'sampleGalleryImage1',
+        src: taxiOne, // Placeholder, needs ImageMetadata
+      },
+       {
+        id: 'sampleGalleryImage2',
+        src: taxiTwo, // Placeholder, needs ImageMetadata
+      },
+       {
+        id: 'sampleGalleryImage3',
+        src: taxiThree, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage4',
+        src: taxiFour, // Placeholder, needs ImageMetadata
+      },
+      {
+        id: 'sampleGalleryImage4',
+        src: taxiFive, // Placeholder, needs ImageMetadata
+      },
+    ],
+    keyFeatures: [
+      // Key features (IDs for translation)
+      { id: 'taskProject' },
+      { id: 'taskProjectTwo' },
+      { id: 'taskProjectThree' },
+      { id: 'taskProjectFour' },
+    ],
+    technologiesUsed: [
+      // Technologies used (IDs for display)
+      { id: 'astro', name: 'Astro' },
+      //{ id: 'react', name: 'React' },
       { id: 'typescript', name: 'TypeScript' },
       { id: 'tailwindcss', name: 'TailwindCSS' },
     ],
@@ -69,11 +267,14 @@ function translateProject(
     );
     return {
       ...project,
-      title: project.id, // Fallback title
+      title: project.id,
+      imageUrl: project.imageUrl ?? '', // Fallback title
       description: 'Description missing for this project.', // Fallback description
       imageAltText: 'Placeholder image', // Fallback alt text
       categoryText: project.category,
+      progressionText: project.progression,
       dateText: project.date,
+      timeProject: project.evolution,
       detailedDescription: 'Detailed description missing.',
       keyFeaturesTranslated:
         project.keyFeatures?.map((kf) => ({
@@ -129,12 +330,15 @@ function translateProject(
   return {
     ...project,
     title: i18nData.title,
+    imageUrl: project.imageUrl ?? '', 
     description: i18nData.description,
     imageAltText: i18nData.imageAltText,
     categoryText: i18nData.categoryText ?? project.category,
+    progressionText:  i18nData.progressionText,
     dateText: i18nData.dateText ?? project.date,
+    timeProject: project.evolution,
     detailedDescription:
-      i18nData?.detailedDescription ?? 'Detailed description missing',
+    i18nData?.detailedDescription ?? 'Detailed description missing',  
     keyFeaturesTranslated,
     galleryImagesTranslated,
     challenges: i18nData?.challenges ?? 'Challenges information missing',
@@ -174,18 +378,23 @@ export const skillsList: Array<SkillData> = [
     id: 'frontendDevelopment',
     iconName: 'MonitorSmartphone',
     technologies: [
-      { id: 'html', name: 'HTML' },
-      { id: 'css', name: 'CSS' },
-      { id: 'javascript', name: 'JavaScript' },
+      { id: 'html5', name: 'HTML' },
+      { id: 'css3', name: 'CSS' },
+      { id: 'react', name: 'React / React Native' },
       { id: 'typescript', name: 'TypeScript' },
+      { id: 'wordpress', name: 'Wordpress' },
     ],
   },
   {
     id: 'backendDevelopment',
     iconName: 'ServerCog',
     technologies: [
-      { id: 'nodejs', name: 'Node.js' },
-      { id: 'restapi', name: 'REST APIs' },
+      { id: 'django', name: 'Django' },
+      { id: 'symfony', name: 'Symfony' },
+      { id: 'wordpress', name: 'Wordpress' },
+      {id: 'apiPlatform', name: 'Api Platform'},
+      {id: 'postgresql', name: 'PostgreSql'},
+      { id: 'firebase', name: 'Firebase' }
     ],
   },
   {
@@ -193,17 +402,33 @@ export const skillsList: Array<SkillData> = [
     iconName: 'PenTool',
     technologies: [
       { id: 'figma', name: 'Figma' },
-      { id: 'responsiveDesign', name: 'Responsive Design' },
+      { id: 'adobe', name: 'Adobe' },
     ],
   },
   {
-    id: 'devOps',
-    iconName: 'Network',
+    id: 'devOpsAndTools',
+    iconName: 'Terminal',
     technologies: [
       { id: 'git', name: 'Git' },
-      { id: 'docker', name: 'Docker' },
+      { id: 'postman', name: 'Postman' },
     ],
   },
+  {
+    id: 'projectManagement',
+    iconName: 'FolderKanban',
+    technologies: [
+      { id: 'jira', name: 'Jira' },
+      { id: 'teams', name: 'microsoft Teams' },
+    ],
+  },
+  // {
+  //   id: 'projectManagement', // 🌟 Nouvelle catégorie pour ton profil entreprise
+  //   iconName: 'FolderKanban', // Icône Lucide très adaptée pour la gestion de projet
+  //   technologies: [
+  //     { id: 'jira', name: 'Jira' },               // 👈 Ajouté ici
+  //     { id: 'teams', name: 'Microsoft Teams' },   // 👈 Ajouté ici
+  //   ],
+  // },
 ];
 
 // Function to get skills with translated content

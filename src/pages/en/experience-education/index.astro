@@ -1,0 +1,48 @@
+---
+import { type LanguageCode, useTranslations } from '@/i18n/ui';
+import { AllBlogPostsScreen } from '@/features/blog';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const currentPath = Astro.url.pathname;
+const lang: LanguageCode = currentPath.startsWith('/en') ? 'en' : 'fr';
+const t = useTranslations(lang, 'blogPage');
+
+const blogEntries: Array<CollectionEntry<'blog'>> = await getCollection(
+  'blog',
+  ({ data, id }) => {
+    if (data.isDraft === true) return false;
+    const isEnglishFile = id.endsWith('en');
+    if (lang === 'en') {
+      return isEnglishFile;
+    } else {
+      return !isEnglishFile;
+    }
+  }
+);
+
+const enrichedPosts = await Promise.all(
+  blogEntries.map(async (postEntry: CollectionEntry<'blog'>) => {
+    const { remarkPluginFrontmatter } = await render(postEntry);
+    return {
+      id: postEntry.id,
+      slug: postEntry.id,
+      collection: postEntry.collection,
+      data: {
+        ...postEntry.data,
+        readingTimeMinutes: remarkPluginFrontmatter.readingTimeMinutes,
+      },
+    };
+  })
+);
+
+enrichedPosts.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+---
+<!-- 
+<AllBlogPostsScreen posts={enrichedPosts} lang={lang} /> -->
+
+
+<AllBlogPostsScreen posts={enrichedPosts} lang={lang} />

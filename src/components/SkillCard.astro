@@ -12,6 +12,8 @@ import {
   ServerCog,
   Database,
   PenTool,
+  Terminal,
+  FolderKanban,
   Network,
   type LucideIcon,
 } from 'lucide-react';
@@ -19,7 +21,11 @@ import type { IconType } from 'react-icons';
 import {
   SiReact,
   SiAngular,
+  SiSymfony,
+  SiAdobeillustrator,
   SiTypescript,
+  SiFirebase,
+  SiPostman,
   SiAstro,
   SiTailwindcss,
   SiHtml5,
@@ -41,9 +47,14 @@ import {
   SiFigma,
   SiDocker,
   SiKubernetes,
+  SiDjango,
   SiGit,
+  SiWordpress,
+  SiJira,
   SiAmazon,
 } from 'react-icons/si';
+
+import { PiMicrosoftTeamsLogoBold } from "react-icons/pi";
 
 // Define the mapping from iconName to Lucide icon component
 // Mapping for Lucide icons (general skill category)
@@ -53,6 +64,8 @@ const iconComponents: Record<string, LucideIcon> = {
   Database,
   PenTool,
   Network,
+  Terminal,
+  FolderKanban
 };
 
 // Mapping for react-icons (specific technologies)
@@ -60,6 +73,14 @@ const techIconComponents: Record<string, IconType> = {
   react: SiReact,
   angular: SiAngular,
   typescript: SiTypescript,
+  symfony: SiSymfony,
+  django: SiDjango,
+  wordpress: SiWordpress,
+  adobe: SiAdobeillustrator,
+  firebase: SiFirebase,
+  postman: SiPostman,
+  jira: SiJira,
+  teams: PiMicrosoftTeamsLogoBold,
   astro: SiAstro,
   tailwindcss: SiTailwindcss,
   html5: SiHtml5,
@@ -85,7 +106,8 @@ const techIconComponents: Record<string, IconType> = {
   amazonservices: SiAmazon,
 };
 
-import type { Technology } from '@/data/skills'; // Import the Technology type
+//import type { Technology } from '@/data/skills'; // Import the Technology type
+import type { Technology } from '@/features/projects';
 
 export type Props = {
   title: string;

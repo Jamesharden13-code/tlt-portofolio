@@ -23,10 +23,21 @@ interface Props {
 
 const { post, lang } = Astro.props;
 const t = useTranslations(lang, 'blogPost');
+
+let postUrl = '';
+
+if (lang === 'en'){
+  const cleanId = post.id.replace(/en$/, '');
+  postUrl = `/en/experience-education/${cleanId}.en/`;
+}else{
+  postUrl = `/experience-formation/${post.id}/`;
+}
+postUrl = postUrl.replace(/\/+/g, '/');
+
 ---
 
 <a
-  href={getRelativeLocaleUrl(lang, `/blog/${post.id}`)}
+  href={postUrl}
   class="block group rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 >
   <Card
@@ -56,14 +67,14 @@ const t = useTranslations(lang, 'blogPost');
         {post.data.title}
       </CardTitle>
       <CardDescription className="flex justify-between pt-1">
-        <p>{t('publishedOn') + formatDate(post.data.pubDate, lang)}</p>
-        {
-          post.data.readingTimeMinutes != null ? (
-            <p class="flex items-center">
-              <Clock className="mr-1.5 size-4 flex-shrink-0" />
-              {post.data.readingTimeMinutes} {t('readingTimeSuffix')}
-            </p>
-          ) : null
+        {/* <p>{t('publishedOn') + formatDate(post.data.pubDate, lang)}</p> */
+        
+          //post.data.readingTimeMinutes != null ? (
+             //<p class="flex items-center">
+              //<Clock className="mr-1.5 size-4 flex-shrink-0" />
+              //{post.data.readingTimeMinutes} {t('readingTimeSuffix')}
+            //</p>
+          //) : null
         }
       </CardDescription>
     </CardHeader>

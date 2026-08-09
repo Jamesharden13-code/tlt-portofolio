@@ -1,6 +1,17 @@
+import OsrsImg from '../assets/error.png' 
+
 export const languages: Record<'fr' | 'en', { name: string; flag: string }> = {
   fr: { name: 'Français', flag: 'fr' },
   en: { name: 'English', flag: 'us' },
+} as const;
+
+export const routesTranslations = {
+  fr: {
+    'experience-formation': 'en/experience-education',
+  },
+  en: {
+    'experience-education': 'experience-formation',
+  }
 } as const;
 
 export const defaultLanguage = 'fr';
@@ -10,23 +21,131 @@ export type LanguageCode = keyof typeof languages;
 export const ui = {
   fr: {
     projectsContent: {
-      sampleProject: {
-        title: 'Exemple de Projet',
-        description: "Ceci est un projet d'exemple pour le template.",
+      agbc: {
+        title: 'AGBC',
+        imageUrl: OsrsImg,
+        description: "Application mobile dédiée à la gestion des scores, performances, tournois et classements de billard avec statistiques en temps réel.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Application Mobile',
+        progressionText: 'En cours',
+        dateText: 'Projet personnel',
+        timeProject: '2026',
+        detailedDescription:
+          "Application qui facilite la gestion des scores, des performances et des tournois de billard à travers une application mobile, tout en offrant des statistiques en temps réel, des vidéos et un classement des joueurs.",
+        keyFeatures: {
+          taskProject: {
+            title: 'Développement et intégration des interfaces utilisateur',
+            description: "conception et intégration des écrans d'authentification (connexion et inscription) ainsi que de l'écran d'accueil de l'application.",
+          },
+          taskProjectTwo: {
+            title: "Mise en place de l'architecture de navigation",
+            description: "implémentation de la navigation principale à l'aide d'une barre de navigation inférieure et configuration d'un menu latéral pour faciliter l'accès aux différentes fonctionnalités.",
+          },
+          taskProjectThree: {
+            title: 'Conception et développement du modèle de données avec Django',
+            description:
+              "création des entités et de la structure de base de données, notamment les tables Utilisateur (User) et Club, ainsi que leurs relations.",
+          },
+          taskProjectFour: {
+            title: 'Développement de composants réutilisables',
+            description:
+              "création de composants personnalisés et modulaires tels que les formulaires, champs de saisie, boutons et listes déroulantes, afin d'assurer la cohérence de l'interface et de faciliter la maintenance du code.",
+          }
+        },
+        galleryImages: {
+          sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          alt: "Texte alternatif pour l'image de galerie 1",
+           caption: "",
+        },
+        },
+        challenges:
+          "L’un des principaux défis a été l’adaptation régulière de l’interface aux évolutions des maquettes Figma et aux tendances UI/UX actuelles. J’ai également dû me familiariser avec TypeScript, que j’utilisais pour la première fois, afin d’intégrer le typage statique et les bonnes pratiques de développement.",
+        learnings: "Ce projet m’a permis d’acquérir des compétences en TypeScript pour développer un code plus fiable et maintenable. J’ai également renforcé mes connaissances en UI/UX à travers l’intégration de maquettes Figma et la conception d’interfaces mobiles intuitives et modernes.",
+      },
+      mielMontet: {
+        title: 'Miel Montet',
+        imageUrl: OsrsImg,
+        description: "Un site e-commerce spécialisé dans la vente de produits à base de miel",
         imageAltText: "Image placeholder pour le projet d'exemple",
         categoryText: 'Application Web',
-        dateText: 'Janvier 2025',
+        progressionText: 'Terminé',
+        dateText: 'Web & Mobile Sucess',
         detailedDescription:
-          "Une description plus détaillée de ce projet d'exemple, montrant comment structurer le contenu pour la page de détail du projet.",
+          "Un site e-commerce spécialisé dans la vente de produits à base de miel.",
         keyFeatures: {
-          responsiveDesign: {
-            title: 'Design Adaptatif',
-            description: "Le projet s'adapte à toutes les tailles d'écran.",
+          taskProject: {
+            title: 'Interface responsive',
+            description: "Test de l'interface responsive sur ordinateurs, tablettes et smartphones pour garantir une expérience utilisateur optimale.",
           },
-          contentManagement: {
-            title: 'Gestion de Contenu Facile',
+          taskProjectTwo: {
+            title: 'Gestion simplifiée du contenu',
+            description: "grâce à l'administration WordPress.",
+          },
+          taskProjectThree: {
+            title: 'Tests fonctionnels',
             description:
-              'Permet une gestion aisée du contenu via des fichiers Markdown ou un CMS.',
+              "réalisés afin d'assurer la stabilité et le bon fonctionnement du site.",
+          },
+          taskProjectFour: {
+            title: 'Formulaire de contact et notifications par e-mail',
+            description:
+              "configurés via WP Mail SMTP pour garantir la bonne réception des messages.",
+          },
+          taskProjectFive: {
+            title: 'Carte interactive dynamique',
+            description:
+              "Permettant aux utilisateurs de situer Miel Montet.",
+          },
+        },
+        galleryImages: {
+          sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          alt: "Texte alternatif pour l'image de galerie 1",
+           caption: "",
+        },
+        },
+        challenges:
+          "L'un des défis majeurs a été de garantir la stabilité du site face à la gestion permanente des mises à jour des plugins, qui provoquaient parfois des conflits d'affichage. De plus, la configuration rigoureuse de WP Mail SMTP pour sécuriser l'envoi des e-mails transactionnels (notifications de commandes) et l'adaptation du design responsive sur WordPress pour obtenir un rendu parfait sur tous les types d'écrans ont demandé une attention technique particulière.",
+        learnings: "Ce projet m'a permis de perfectionner mes compétences dans la maintenance, la sécurisation et la gestion des cycles de mise à jour des extensions WordPress. J'ai également acquis une connaissance de l'écosystème WooCommerce pour la gestion complète d'une boutique e-commerce (produits, tunnels d'achat, passerelles). Enfin, j'ai consolidé mon expertise dans l'optimisation du responsive design et la résolution de problèmes liés aux flux d'e-mails professionnels.",
+      },
+      osr: {
+        title: 'Osiris',
+        imageUrl: OsrsImg,
+        description: "Une application interne de back-office pour la gestion globale des clients, des commandes, des livraisons et le suivi des cycles de tests.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Application Web',
+        progressionText: 'Terminé',
+        dateText: 'Web & Mobile Sucess',
+        detailedDescription:
+          "Osiris est une application interne (back-office) conçue pour centraliser la gestion des clients, des commandes et du suivi des livraisons. La plateforme permet d'optimiser les processus métier grâce à une interface intuitive et à des services API performants. Le projet a été développé avec Symfony, API Platform et Next.js afin d'assurer une gestion efficace des données et une expérience utilisateur fluide.",
+        keyFeatures: {
+          taskProject: {
+            title: 'Gestion des localisation et des partenaires',
+            description: 'Développement des fonctionnalités liées à la gestion des localisations et partenaires.'
+          },
+
+          taskProjectTwo: {
+            title: 'Test QA des Gestion des commandes',
+            description: 'Suivi et traitement des commandes au sein de la plateforme.'
+          },
+
+          taskProjectThree: {
+            title: 'Développement API',
+            description: 'Création et optimisation des endpoints conçernant la partie localisation et partenaire avec Symfony et API Platform.'
+          },
+
+          taskProjectFour: {
+            title: 'Modélisation des données',
+            description: 'Création et mise à jour des entités et des champs métier.'
+          },
+
+          taskProjectFive: {
+            title: 'Tests unitaires',
+            description: 'Mise en place de tests afin d’assurer la qualité et la stabilité de l’application.'
+          },
+
+          taskProjectSix: {
+            title: 'Interface utilisateur',
+            description: 'Développement et optimisation du front-end avec Next.js.'
           },
         },
         galleryImages: {
@@ -36,8 +155,45 @@ export const ui = {
           // },
         },
         challenges:
-          'Description des défis rencontrés lors de la création de ce projet exemple.',
-        learnings: 'Description des apprentissages tirés de ce projet exemple.',
+          "Le défi principal a été l'apprentissage et la prise en main rapide de Next.js, en comprenant ses spécificités (comme le rendu côté serveur ou la structure des pages) par rapport à React standard. De plus, concevoir des API robustes avec API Platform tout en mettant en place simultanément une suite complète de tests unitaires pour valider les endpoints de localisation a nécessité une courbe d'apprentissage intensive.",
+        learnings: "Ce projet m'a permis de découvrir la puissance et la robustesse de Next.js pour la création d'applications modernes, notamment sa fluidité dans la consommation des données d'API. J'ai également acquis une solide expertise sur API Platform pour générer rapidement des API REST professionnelles, tout en consolidant mes compétences en tests automatisés pour garantir la qualité d'une architecture globale (Back-End Symfony / Front-End Next.js).",
+      },
+      taxi: {
+        title: 'Taxi Finder',
+        description: "Développement mobile (React Native) d'un service de mise en relation de taxis de proximité.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Application Mobile',
+        progressionText: 'Terminé',
+        dateText: 'Web & Mobile Sucess',
+        detailedDescription:
+          "Développement de la version mobile d'un service de mise en relation avec des taxis à proximité. Développée en React Native, l'application permet aux utilisateurs de localiser et réserver un chauffeur en temps réel. J'ai activement contribué à la refonte complète de l'interface utilisateur pour offrir une expérience plus fluide et intuitive, tout en mettant en place une gestion globale des traductions multilingues afin de rendre l'application accessible à un public international.",
+        keyFeatures: {
+          taskProject: {
+            title: "Refonte de l\'interface (UI/UX)",
+            description: 'Contribution majeure à la refonte visuelle pour offrir une navigation fluide, moderne et intuitive sur mobile.'
+          },
+          taskProjectTwo: {
+            title: 'Consommation d\'API REST',
+            description: 'Connexion et communication sécurisée des flux de données en temps réel avec le serveur backend.'
+          },
+          taskProjectThree: {
+            title: 'Internationalisation (i18n)',
+            description: 'Gestion complète du système de traductions multilingues pour ouvrir l\'application à un public international.'
+          },
+          taskProjectFour: {
+            title: 'Optimisation de l\'application',
+            description: 'Amélioration des performances globales du code et de la fluidité des composants graphiques React Native.'
+          },
+        },
+        galleryImages: {
+          sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          alt: "Texte alternatif pour l'image de galerie 1",
+          caption: "",
+        },
+        },
+        challenges:
+          "Le défi majeur a résidé dans la gestion et l'intégration des flux complexes de l'API REST en temps réel pour la mise en relation avec les chauffeurs. Sécuriser les échanges de données asynchrones sur mobile tout en maintenant une interface fluide et sans latence (notamment lors du chargement des composants graphiques et des rafraîchissements) a demandé une gestion rigoureuse des états de l'application.",
+        learnings: "Grâce à ce projet, j'ai acquis une solide compréhension de la sécurisation des architectures mobiles grâce à l'implémentation et à la gestion des Tokens d'authentification (comme les JWT) pour l'accès aux API. J'ai également approfondi mes compétences en internationalisation (i18n), en apprenant à structurer proprement les fichiers de traduction pour adapter dynamiquement l'UI en plusieurs langues sans impacter les performances de l'application.",
       },
     },
     skillsContent: {
@@ -55,35 +211,40 @@ export const ui = {
         description:
           "Conception d'expériences utilisateur intuitives et esthétiques.",
       },
-      devOps: {
-        title: 'DevOps',
+      devOpsAndTools: {
+        title: 'DevOps & Outils',
         description:
-          'Automatisation des processus de développement et de déploiement.',
+          "Outils et processus essentiels au contrôle de version, aux tests d'API et à la garantie d'un cycle de développement propre et sécurisé.",
+      },
+      projectManagement: {
+        title: 'Project Management',
+        description:
+          'Expérience du travail en équipe et des méthodologies Agile (Scrum) pour le suivi des tâches, la collaboration et la livraison continue de projets',
       },
     },
     site: {
-      title: 'Mon Super Template',
+      title: 'Développeur web & mobile',
       description:
-        'Un template Astro moderne et performant pour démarrer votre projet.',
+        'Expérience du travail en équipe et des méthodologies Agiles (Scrum) pour le suivi des tâches, la collaboration et la livraison continue des projets.',
     },
     nav: {
       home: 'Accueil',
-      blog: 'Blog',
+      blog: 'Expériences & Formations',
       contact: 'Contact',
       projects: 'Projets',
-      tips: 'Astuces',
+      // tips: 'Astuces',
     },
     footer: {
       rights: 'Tous droits réservés.',
     },
     homePage: {
-      pageTitle: 'Accueil |  Développeur FullStack',
+      pageTitle: 'Accueil |  Développeur web & mobile',
       pageDescription:
         "Bienvenue sur le portfolio de YOUR_NAME, développeur FullStack passionné par la création d'expériences web innovantes.",
-      heroGreeting: "Salut, c'est YOUR_NAME",
-      heroSubtitlePart1: 'Développeur FullStack',
+      heroGreeting: "Bonjour, je m'appelle TOLOTRA",
+      heroSubtitlePart1: 'Développeur Web & Mobile',
       heroSubtitlePart2: 'Passionné UI/UX',
-      heroIntroduction: 'Ajouter une introduction ici.',
+      heroIntroduction: "Développeur web et mobile avec 2 ans d'expérience, spécialisé dans le développement d'applications web et Android. J'intègre également l'IA dans mon workflow pour concevoir des solutions innovantes et performantes.",
       heroViewWorkButton: 'Mes réalisations',
       heroContactButton: 'Me contacter',
       heroImageAlt:
@@ -99,12 +260,12 @@ export const ui = {
         "Explorez l'expertise et les capacités qui définissent mon travail et ma passion.",
     },
     blogPage: {
-      pageTitle: 'Mon Blog Technique',
+      pageTitle: 'Expériences & formations | Développeur web & mobile',
       pageDescription:
         "Articles et réflexions sur le développement web, l'architecture logicielle, et les nouvelles technologies.",
-      title: 'Mon Blog Technique',
+      title: 'Expériences et formations',
       description:
-        "Articles et réflexions sur le développement web, l'architecture logicielle, et les nouvelles technologies.",
+        "Aperçu de mon parcours académique et de mes expériences professionnelles en développement web et mobile",
       comingSoon:
         'Les articles de blog apparaîtront ici bientôt. Revenez plus tard !',
       heroImageAlt: "Image de couverture pour l'article : ",
@@ -119,10 +280,10 @@ export const ui = {
       noPostsFound: 'Aucun article trouvé.',
     },
     blogPost: {
-      publishedOn: 'Publié le : ',
+      publishedOn: 'Durée: ',
       updatedOn: 'Mis à jour le : ',
       heroImageAlt: "Image de couverture pour l'article : ",
-      backToList: 'Retour à la liste des articles',
+      backToList: 'Retour à la page expériences et formations',
       readingTimeSuffix: 'min de lecture',
       relatedPostsTitle: 'Je te recommande aussi :',
       readMore: 'Lire la suite',
@@ -136,10 +297,12 @@ export const ui = {
       pageDescription:
         "Discutons de ton projet, d'une collaboration potentielle, ou simplement pour échanger sur la tech !",
       title: 'Me Contacter',
+
       description:
         "Discutons de ton projet, d'une collaboration potentielle, ou simplement pour échanger sur la tech !",
 
-      formTitle: 'Envoyer un message',
+      formTitle: 'Envoyer un message au:',
+      mailTitle: 'tolotrafaniryrasolofomanana13@gmail.com',
       firstNameLabel: 'Prénom',
       lastNameLabel: 'Nom',
       emailLabel: 'Email',
@@ -150,7 +313,8 @@ export const ui = {
       lastNamePlaceholder: 'Ton nom de famille',
       emailPlaceholder: 'Ton adresse e-mail',
       messagePlaceholder: 'Ton message ici...',
-      calendarTitle: 'Planifier un RDV',
+      calendarTitle: "M'appeler directement :",
+      numTitle: "+261 38 33 050 53",
       calendarDescription:
         'Tu préfères discuter de vive voix ? Réservez directement un créneau dans mon agenda.',
       calendarButtonLabel: 'Voir mes disponibilités',
@@ -167,9 +331,12 @@ export const ui = {
     projectDetailPage: {
       backToProjects: 'Retour aux Projets',
       categoryLabel: 'Catégorie :',
-      dateLabel: 'Date :',
+      status: 'Status :',
+      titleForYear: 'Année :',
+      dateLabel: 'Société :',
+      timeProject: 'Test',
       aboutTitle: 'À propos de ce projet',
-      keyFeaturesTitle: 'Fonctionnalités Clés',
+      keyFeaturesTitle: 'Tâches',
       galleryTitle: 'Galerie',
       challengesTitle: 'Défis Rencontrés',
       learningsTitle: 'Leçons Apprises',
@@ -178,7 +345,7 @@ export const ui = {
     },
     projectsPage: {
       title: 'Mes Projets',
-      metaTitle: 'Mes Projets | Portfolio',
+      metaTitle: 'Mes Projets | Développeur web & mobile',
       metaDescription: 'Découvrez tous les projets.',
       noProjects: 'Aucun projet à afficher pour le moment.',
       noProjectsDescription:
@@ -201,7 +368,7 @@ export const ui = {
       title: 'Nos Dernières Astuces',
       noTips: 'Aucune astuce à afficher pour le moment.',
       readTip: "Lire l'astuce",
-      backToList: 'Retour à la liste des astuces',
+      backToList: 'Retour à la page expériences et formations',
       featuredTips: 'Astuces recommandées',
       allTips: 'Toutes les astuces',
       tipsAvailable: 'astuces disponibles',
@@ -224,24 +391,80 @@ export const ui = {
   },
   en: {
     projectsContent: {
-      sampleProject: {
-        title: 'Sample Project',
-        description: 'This is a sample project for the template.',
+      agbc: {
+        title: 'AGBC',
+        imageUrl: OsrsImg,
+        description: "Mobile application dedicated to managing billiards scores, performances, tournaments, and rankings with real-time statistics.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Mobile Application',
+        progressionText: 'In progress',
+        dateText: 'Personal Project',
+        detailedDescription:
+          "A mobile application that simplifies the management of billiard scores, player performance, and tournaments, while providing real-time statistics, videos, and player rankings.",
+        keyFeatures: {
+          taskProject: {
+            title: 'Development and integration of user interfaces',
+            description: "design and implementation of authentication screens (login and sign-up), as well as the application home screen.",
+          },
+          taskProjectTwo: {
+            title: "Implementation of the navigation architecture",
+            description: "setting up the main navigation using a Bottom Tab Navigator and configuring a Drawer Navigator to facilitate access to the application’s different features.",
+          },
+          taskProjectThree: {
+            title: 'Design and development of the data model using Django',
+            description:
+              "creation of entities and database structure, including the User and Club tables, as well as their relationships.",
+          },
+          taskProjectFour: {
+            title: 'Development of reusable components',
+            description:
+              "creation of custom and modular components such as forms, input fields, buttons, and dropdown lists, to ensure interface consistency and simplify code maintenance.",
+          }
+        },
+        galleryImages: {
+          sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          alt: "Texte alternatif pour l'image de galerie 1",
+           caption: "",
+        },
+        },
+        challenges:
+          "One of the main challenges was regularly adapting the interface to changes in Figma designs and current UI/UX trends. I also had to become familiar with TypeScript, which I was using for the first time, in order to implement static typing and adopt good development practices.",
+        learnings: "This project allowed me to gain skills in TypeScript to develop more reliable and maintainable code. I also strengthened my UI/UX knowledge through the integration of Figma designs and the creation of modern, intuitive mobile interfaces.",
+      },
+      mielMontet: {
+        title: 'Miel Montet',
+        imageUrl: OsrsImg,
+        description: 'E-commerce platform dedicated to honey-based products.',
         imageAltText: 'Placeholder image for the sample project',
         categoryText: 'Web Application',
-        dateText: 'January 2025',
+        progressionText: 'Completed',
+        dateText: 'Web & Mobile Sucess',
         detailedDescription:
-          'A more detailed description of this sample project, showing how to structure content for the project detail page.',
+          'An e-commerce website specializing in honey-based products.',
         keyFeatures: {
-          responsiveDesign: {
+          taskProject: {
             title: 'Responsive Design',
-            description: 'The project adapts to all screen sizes.',
+            description: 'Responsive interface testing on desktops, tablets, and smartphones to ensure an optimal user experience.',
           },
-          contentManagement: {
-            title: 'Easy Content Management',
+          taskProjectTwo: {
+            title: 'Content management',
+            description: 'Simplified through the WordPress admin panel.',
+          },
+          taskProjectThree: { 
+            title: 'Functional testing',
             description:
-              'Allows for easy content management via Markdown files or a CMS.',
+              'Conducted to ensure website stability and optimal performance.',
           },
+          taskProjectFour: { 
+            title: 'Contact form and email notifications',
+            description:
+              'Configured via WP Mail SMTP to guarantee reliable message delivery.',
+          },
+          taskProjectFive: { 
+            title: 'Dynamic interactive map',
+            description:
+              'Allowing users to locate Miel Montet.',
+          }
         },
         galleryImages: {
           // sampleGalleryImage1: { // If you enable gallery for the example
@@ -250,8 +473,96 @@ export const ui = {
           // },
         },
         challenges:
-          'Description of challenges encountered while creating this sample project.',
-        learnings: 'Description of learnings from this sample project.',
+          'One of the major challenges was maintaining website stability while continuously managing plugin updates, which occasionally caused display conflicts. Additionally, configuring WP Mail SMTP to secure transactional email delivery (such as order notifications) and fine-tuning the responsive design on WordPress for a pixel-perfect rendering across all screen sizes required meticulous technical attention.',
+        learnings: 'This project allowed me to hone my skills in maintaining, securing, and managing WordPress plugin update cycles. I also gained hands-on experience with the WooCommerce ecosystem for comprehensive e-commerce management, including products, checkout funnels, and gateways. Finally, I consolidated my expertise in responsive design optimization and troubleshooting professional email delivery workflows.',
+      },
+      osr: {
+        title: 'Osiris',
+        imageUrl: OsrsImg,
+        description: "An internal back-office application for the comprehensive management of clients, orders, deliveries, and testing lifecycle tracking.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Web Application',
+        progressionText: 'Completed',
+        dateText: 'Web & Mobile Sucess',
+        detailedDescription:
+          "Osiris is an internal back-office application designed to centralize customer, order, and delivery tracking management. The platform optimizes business workflows through an intuitive interface and high-performance API services. The project was built using Symfony, API Platform, and Next.js to ensure efficient data management and a seamless user experience.",
+        keyFeatures: {
+          taskProject: {
+            title: 'Location and partner management',
+            description: 'Developed features related to managing locations and partners.'
+          },
+
+          taskProjectTwo: {
+            title: 'Order management QA testing',
+            description: 'Monitored and processed orders within the platform.'
+          },
+
+          taskProjectThree: {
+            title: 'API Development',
+            description: 'Created and optimized endpoints for locations and partners using Symfony and API Platform.'
+          },
+
+          taskProjectFour: {
+            title: 'Data modeling',
+            description: 'Created and updated database entities and business fields.'
+          },
+
+          taskProjectFive: {
+            title: 'Unit testing',
+            description: 'Implemented tests to ensure application quality and stability.'
+          },
+
+          taskProjectSix: {
+            title: 'User interface',
+            description: 'Developed and optimized the front-end using Next.js.'
+          },
+        },
+        galleryImages: {
+          // sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          //   alt: "Texte alternatif pour l'image de galerie 1",
+          //   caption: "Légende pour l'image de galerie 1",
+          // },
+        },
+        challenges:
+          "A key challenge was quickly adapting to Next.js by mastering its differences from standard React, notably server-side rendering and page structure. Furthermore, building robust APIs with API Platform while developing a full suite of unit tests to validate location endpoints made for an intensive learning curve.",
+        learnings: "This project allowed me to discover the power and robustness of Next.js for building modern applications, particularly its seamless efficiency in consuming API data. I also gained solid expertise in API Platform for rapidly generating professional-grade REST APIs, while consolidating my skills in automated testing to guarantee the quality of a full-stack architecture (Symfony Back-End / Next.js Front-End).",
+      },
+      taxi: {
+        title: 'Taxi Finder',
+        description: "Mobile development (React Native) of a proximity-based taxi-hailing service.",
+        imageAltText: "Image placeholder pour le projet d'exemple",
+        categoryText: 'Mobile Application',
+        progressionText: 'Completed',
+        dateText: 'Web & Mobile Sucess',
+        detailedDescription:
+          "Development of the mobile version for a ride-hailing service connecting users with nearby taxis. Built with React Native, the application allows users to locate and book a driver in real time. I actively contributed to a complete UI redesign to deliver a smoother, more intuitive user experience, while implementing a global localization system to make the app accessible to an international audience.",
+        keyFeatures: {
+          taskProject: {
+            title: "UI/UX redesign",
+            description: 'Major contribution to the visual overhaul, delivering seamless, modern, and intuitive mobile navigation.'
+          },
+          taskProjectTwo: {
+            title: 'REST API consumption',
+            description: 'Connected and securely synchronized real-time data streams with the backend server.'
+          },
+          taskProjectThree: {
+            title: 'Internationalization (i18n)',
+            description: 'Full management of the multilingual translation system to open the application to an international audience.'
+          },
+          taskProjectFour: {
+            title: 'App optimization',
+            description: 'Enhanced overall code performance and improved the smoothness of React Native graphical components.'
+          },
+        },
+        galleryImages: {
+          sampleGalleryImage1: { // Si tu actives la galerie pour l'exemple
+          alt: "Texte alternatif pour l'image de galerie 1",
+          caption: "",
+        },
+        },
+        challenges:
+          "The major challenge lay in managing and integrating complex, real-time REST API streams for driver matching. Securing asynchronous data exchanges on mobile while maintaining a smooth, lag-free user interface—particularly during graphical component rendering and state updates—required rigorous application state management.",
+        learnings: "Through this project, I gained a solid understanding of mobile architecture security by implementing and managing authentication tokens (such as JWTs) for API access. I also deepened my skills in internationalization (i18n), learning how to cleanly structure translation files to dynamically adapt the UI across multiple languages without impacting app performance.",
       },
     },
     skillsContent: {
@@ -268,34 +579,39 @@ export const ui = {
         title: 'UI/UX Design',
         description: 'Designing intuitive and aesthetic user experiences.',
       },
-      devOps: {
-        title: 'DevOps',
+      devOpsAndTools: {
+        title: 'DevOps & Tools',
         description: 'Automating development and deployment processes.',
+      },
+      projectManagement: {
+        title: 'Project Management',
+        description:
+          'Experience in teamwork and Agile methodologies (Scrum) for task tracking, collaboration, and continuous project delivery.',
       },
     },
     site: {
-      title: 'My Awesome Template',
+      title: 'Web & Mobile Developer',
       description:
         'A modern and performant Astro template to kickstart your project.',
     },
     nav: {
       home: 'Home',
-      blog: 'Blog',
+      blog: 'Educations & Certifications',
       contact: 'Contact',
       projects: 'Projects',
-      tips: 'Tips',
+      // tips: 'Tips',
     },
     footer: {
       rights: 'All rights reserved.',
     },
     homePage: {
-      pageTitle: 'Home | YOUR_NAME - FullStack Developer',
+      pageTitle: 'Home | Web & Mobile Developer',
       pageDescription:
         'Welcome to the portfolio of YOUR_NAME, a FullStack developer passionate about creating innovative web experiences.',
-      heroGreeting: "Hi, I'm YOUR_NAME",
-      heroSubtitlePart1: 'Full Stack Developer',
+      heroGreeting: "Hi, I'm Tolotra",
+      heroSubtitlePart1: 'Web & Mobile Developer',
       heroSubtitlePart2: 'UI/UX Enthusiast',
-      heroIntroduction: 'Add an introduction here.',
+      heroIntroduction: 'Web and mobile developer with 2 years of experience specializing in web and Android application development. I also integrate AI into my workflow to build innovative and high-performing solutions',
       heroViewWorkButton: 'View My Work',
       heroContactButton: 'Get In Touch',
       heroImageAlt:
@@ -311,15 +627,15 @@ export const ui = {
         'Explore the expertise and abilities that define my work and passion.',
     },
     blogPage: {
-      pageTitle: 'My Technical Blog',
+      pageTitle: 'Educations & certifications | Web & Mobile Developer',
       pageDescription:
         'Articles and thoughts on web development, software architecture, and new technologies.',
-      title: 'My Technical Blog',
+      title: 'Education & Certifications',
       description:
-        'Articles and thoughts on web development, software architecture, and new technologies.',
+        'An overview of my academic background and professional experience in web and mobile development.',
       comingSoon: 'Blog posts will appear here soon. Check back later!',
       heroImageAlt: 'Hero image for article: ',
-      publishedOn: 'Published on: ',
+      publishedOn: 'Durée: ',
       readMore: 'Read more',
       readingTimeSuffix: 'min read',
       searchPlaceholder: 'Search articles...',
@@ -349,7 +665,8 @@ export const ui = {
       title: 'Contact Me',
       description:
         "Let's discuss your project, a potential collaboration, or just chat about tech!",
-      formTitle: 'Send a message',
+      formTitle: 'Send a message:',
+      mailTitle: 'tolotrafaniryrasolofomanana13@gmail.com',
       firstNameLabel: 'First Name',
       lastNameLabel: 'Last Name',
       emailLabel: 'Email',
@@ -359,7 +676,8 @@ export const ui = {
       lastNamePlaceholder: 'Your last name',
       emailPlaceholder: 'Your email address',
       messagePlaceholder: 'Your message here...',
-      calendarTitle: 'Schedule a Meeting',
+      calendarTitle: 'Direct phone call',
+      numTitle: "+261 38 33 050 53",
       calendarDescription:
         'Prefer to talk live? Book a slot directly in my calendar.',
       calendarButtonLabel: 'See my availability',
@@ -375,10 +693,12 @@ export const ui = {
     },
     projectDetailPage: {
       backToProjects: 'Back to Projects',
-      categoryLabel: 'Category:',
-      dateLabel: 'Date:',
+      categoryLabel: 'Category :',
+      status: 'Status :',
+      titleForYear: 'Year :',
+      dateLabel: 'Company :',
       aboutTitle: 'About this project',
-      keyFeaturesTitle: 'Key Features',
+      keyFeaturesTitle: 'Tasks',
       galleryTitle: 'Gallery',
       challengesTitle: 'Challenges',
       learningsTitle: 'Learnings',
@@ -387,7 +707,7 @@ export const ui = {
     },
     projectsPage: {
       title: 'My Projects',
-      metaTitle: "My Projects | YOUR_NAME's Portfolio",
+      metaTitle: "My Projects | Web & Mobile Developer",
       metaDescription: "Discover all of YOUR_NAME's projects.",
       noProjects: 'No projects to display at the moment.',
       noProjectsDescription:

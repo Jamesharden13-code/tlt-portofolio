@@ -15,6 +15,8 @@ export type Props = {
 };
 
 const { project, t, lang } = Astro.props;
+// const isLarge = false;
+const isLarge = project.imageUrl && typeof project.imageUrl === 'object' ? project.imageUrl.width > 1200 : false;
 ---
 
 <div class="py-12 md:py-16">
@@ -42,6 +44,7 @@ const { project, t, lang } = Astro.props;
         )
       }
       <!-- Date -->
+
       {
         project.dateText && (
           <div class="flex items-center gap-2">
@@ -52,21 +55,41 @@ const { project, t, lang } = Astro.props;
           </div>
         )
       }
+      {
+          <div class="flex items-center gap-2">
+            <span class="text-foreground">
+              {t.projectDetailPage?.titleForYear ?? 'Année'}
+            </span>
+            <Badge variant="secondary">{project.evolution}</Badge>
+          </div>
+      }
+      <!-- Project evolution -->
+      {
+        project.progression   && (
+          <div class="flex items-center gap-2">
+            <span class="text-foreground">
+              {t.projectDetailPage?.status ?? 'Status'}
+            </span>
+            <Badge variant="secondary">{project.progressionText}</Badge>
+          </div>
+        )
+      }
     </div>
 
     <!-- Image -->
     {
-      project.imageUrl && (
-        <div class="mb-8 aspect-[16/9] overflow-hidden rounded-lg shadow-lg">
+      project.imageUrl && typeof project.imageUrl !== 'string' && (
+        // <div class="mb-8 aspect-[16/9] overflow-hidden rounded-lg shadow-lg">
+        <div class={`mb-8 overflow-hidden rounded-lg shadow-lg ${isLarge ? 'aspect-[16/9]' : 'aspect-[32/9]'}`}>
           <Image
             src={project.imageUrl}
             alt={project.imageAltText}
-            class="h-full w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-            widths={[400, 800, 1200]}
+            class="h-full w-full object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+            widths={[400, 800, 1200, 1600, 2000]}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-      )
+      ) 
     }
 
     <!-- Detailed Description -->

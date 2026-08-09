@@ -5,6 +5,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { LanguageCode } from '@/i18n/ui';
+import {allProjects} from '../projectDetails';
 
 export type Props = {
   lang: LanguageCode;
@@ -17,6 +18,9 @@ export type Props = {
 
 const { lang, slug, title, imageUrl, imageAltText, ctaText } = Astro.props;
 const projectUrl = getRelativeLocaleUrl(lang, `/projects/${slug}`);
+
+const projectUrlUp = allProjects[lang]?.[slug];
+
 ---
 
 <a

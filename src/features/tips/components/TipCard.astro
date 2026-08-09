@@ -45,9 +45,9 @@ const t = useTranslations(lang, 'tipsPage');
     <div class="flex items-center gap-3 text-xs text-muted-foreground pt-2">
       <div class="flex items-center gap-1">
         <Calendar className="size-4" />
-        <time datetime={tip.data.pubDate.toISOString()}>
-          {formatDate(tip.data.pubDate, lang)}
-        </time>
+          <time datetime={tip.data.pubDate.toISOString()}>
+            {formatDate(tip.data.pubDate, lang)}
+          </time>
       </div>
       {
         tip.data.tags && tip.data.tags.length > 0 && (

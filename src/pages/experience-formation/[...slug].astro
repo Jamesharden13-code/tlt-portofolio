@@ -1,0 +1,116 @@
+---
+import { BlogPostDetailScreen } from '@/features/blog';
+import { defaultLanguage, type LanguageCode } from '@/i18n/ui';
+import { getCollection, getEntries, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+//let lang = defaultLanguage as LanguageCode;
+
+export async function getStaticPaths() {
+  const allBlogEntries = await getCollection('blog', ({data}) => { return data.isDraft !== true });
+
+  return allBlogEntries.map((post) => {
+    const isEnglish = post.id.endsWith('en')
+    // Détection plus souple de la langue du fichier
+    //const isEnglish = post.id.endsWith('en') || post.id.includes('en') || post.data.lang === 'en';
+    const fileLang = isEnglish ? 'en' : 'fr';  
+    // let cleanSlug = post.id;
+    // if (isEnglish) {
+    //   cleanSlug = post.id.replace('.en', '').replace('en', '');
+    // }
+    // Si l'ID est 'wmsen', le cleanSlug devient 'wms'
+    const cleanSlug = isEnglish ? post.id.replace(/en$/, '') : post.id;
+    // On extrait le nom de base pur (ex: "self-taugh.en" -> "self-taugh", "self-taugh" -> "self-taugh")
+    //const cleanSlug = post.id.replace(/[-.]?en$/, '');
+
+const finalSlugForUrl = isEnglish ? `${cleanSlug}.en` : post.id;
+
+  return {
+      //params: { slug: post.id },
+      params: { slug : finalSlugForUrl}, 
+      props: { post, lang: fileLang as LanguageCode, cleanSlug },
+    };
+  })
+}
+
+
+// const { post } = Astro.props;
+const { post, lang, cleanSlug } = Astro.props;
+
+let translatedUrl = '';
+
+if (lang === 'fr') {
+  translatedUrl = `/en/experience-education/${cleanSlug}.en/`;
+} else {
+  translatedUrl = `/experience-formation/${cleanSlug}/`;
+}
+
+// Nettoyage de sécurité pour éviter les doubles slashes optionnels à la fin
+translatedUrl = translatedUrl.replace(/\/+/g, '/');
+// On génère l'URL vers le même article dans l'autre langue
+//const translatedUrl = `/${targetLang}/experience-et-formation/${cleanSlug}`;
+//const translatedUrl = `/blog/${targetLang}/${cleanSlug}`;
+
+console.log("=== VÉRIFICATION TRADUCTION DETAIL ===");
+console.log("URL de l'article actuel :", Astro.url.pathname);
+console.log("URL envoyée au bouton de langue :", translatedUrl);
+
+// Récupération des articles liés
+//const baseRelatedPosts = post.data.relatedPosts
+//  ? await getEntries(post.data.relatedPosts)
+//  : [];
+
+//const baseRelatedPosts = post.data.relatedPosts
+  //? await getEntries(post.data.relatedPosts)
+  //: [];
+
+const baseRelatedPosts = post.data.relatedPosts ? await getEntries(post.data.relatedPosts) : [];
+//const enrichedRelatedPostsPromises = baseRelatedPosts.map(async (relatedEntry) => {
+  //if (!relatedEntry) return null;
+  //const { remarkPluginFrontmatter: relatedFm } = await render(relatedEntry);
+  //return {
+   // id: relatedEntry.id,
+    //slug: relatedEntry.id,
+    //collection: relatedEntry.collection,
+    //data: { ...relatedEntry.data, readingTimeMinutes: relatedFm.readingTimeMinutes },
+  //};
+//});
+//const finalRelatedPosts = (await Promise.all(enrichedRelatedPostsPromises)).filter((p) => p !== null);
+
+// const { Content, remarkPluginFrontmatter } = await render(post); 
+
+const enrichedRelatedPostsPromises = baseRelatedPosts.map(
+  async (relatedEntry) => {
+    if (!relatedEntry) return null;
+    const { remarkPluginFrontmatter: relatedFm } = await render(relatedEntry);
+    return {
+      id: relatedEntry.id,
+      slug: relatedEntry.id,
+      collection: relatedEntry.collection,
+      data: {
+        ...relatedEntry.data,
+        readingTimeMinutes: relatedFm.readingTimeMinutes,
+      },
+    };
+  }
+);
+const finalRelatedPosts = (
+  await Promise.all(enrichedRelatedPostsPromises)
+).filter((p) => p !== null);
+
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+<BaseLayout  pageTitle={post.data.title} translatedUrl={translatedUrl}>
+  <BlogPostDetailScreen
+    post={{
+      ...post.data,
+      readingTimeMinutes: remarkPluginFrontmatter.readingTimeMinutes,
+    }}
+    lang={lang}
+    relatedPosts={finalRelatedPosts}
+    filePath={post.filePath ? post.filePath : ''}
+    translatedUrl={translatedUrl} 
+  >
+    <Content />
+  </BlogPostDetailScreen>
+</BaseLayout>

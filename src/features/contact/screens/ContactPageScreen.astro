@@ -1,82 +1,107 @@
----
-import Heading from '@/components/Heading.astro';
-import { buttonVariants } from '@/components/ui/button';
-import type { LanguageCode } from '@/i18n/ui';
-import { cn } from '@/lib/utils';
-import { Calendar } from 'lucide-react';
+  ---
+  import Heading from '@/components/Heading.astro';
+  import { buttonVariants } from '@/components/ui/button';
+  import type { LanguageCode } from '@/i18n/ui';
+  import { cn } from '@/lib/utils';
+  import { Calendar } from 'lucide-react';
+  import type { IconType } from 'react-icons';
+  import { PiPhoneBold, PiEnvelopeBold } from 'react-icons/pi';
 
-import { ContactForm } from '../components/ContactForm.tsx';
-import type { ContactFormTranslations } from '../type';
+  import { ContactForm } from '../components/ContactForm.tsx';
+  import type { ContactFormTranslations } from '../type';
 
-interface Props {
-  lang: LanguageCode;
-  mainHeadingTitle: string;
-  mainHeadingDescription: string;
-  formTitle: string;
-  formTranslations: ContactFormTranslations;
-  orSeparatorText: string;
-  calendarTitle: string;
-  calendarDescription: string;
-  calendarLinkLabel: string;
-  calendarUrl: string;
-}
+  interface Props {
+    lang: LanguageCode;
+    mainHeadingTitle: string;
+    mainHeadingDescription: string;
+    PiEnvelopeBold: string;
+    PiPhoneBold: string;
+    formTitle: string;
+    mailTitle: string;
+    formTranslations: ContactFormTranslations;
+    orSeparatorText: string;
+    calendarTitle: string;
+    numTitle: string;
+    calendarDescription: string;
+    calendarLinkLabel: string;
+    calendarUrl: string;
+  }
 
-const {
-  lang,
-  mainHeadingTitle,
-  mainHeadingDescription,
-  formTitle,
-  formTranslations,
-  orSeparatorText,
-  calendarTitle,
-  calendarDescription,
-  calendarLinkLabel,
-  calendarUrl,
-} = Astro.props;
----
+  const MailIcon = PiEnvelopeBold;
+  const PhoneIcon = PiPhoneBold;
 
-<section class="py-12 md:py-16">
-  <Heading
-    title={mainHeadingTitle}
-    description={mainHeadingDescription}
-    showDivider={true}
-    className="flex flex-col items-center justify-center"
-    titleClassName="md:text-5xl"
-  />
+  const {
+    lang,
+    mainHeadingTitle,
+    mainHeadingDescription,
+    formTitle,
+    mailTitle,
+    formTranslations,
+    orSeparatorText,
+    calendarTitle,
+    numTitle,
+    calendarDescription,
+    calendarLinkLabel,
+    calendarUrl,
+  } = Astro.props;
+  ---
 
-  <div class="flex justify-center mt-12">
-    <div class="w-full max-w-xl space-y-6 bg-card p-6 md:p-8 rounded-lg shadow">
-      {/* Section Formulaire */}
-      <Heading title={formTitle} className="text-center" />
-      <ContactForm client:load {lang} {formTranslations} />
-
-      {/* Séparateur OU */}
-      <div class="my-8 flex items-center">
-        <hr class="flex-grow border-border" />
-        <span class="mx-4 text-muted-foreground font-medium"
-          >{orSeparatorText}</span
-        >
-        <hr class="flex-grow border-border" />
-      </div>
-
-      {/* Section Google Calendar */}
-      <Heading
-        title={calendarTitle}
-        className="text-center"
-        description={calendarDescription}
+  <section class="py-12 md:py-16">
+    <div class="cntct-anim-title">
+       <Heading
+        title={mainHeadingTitle}
+        description={mainHeadingDescription}
+        showDivider={true}
+        className="flex flex-col items-center justify-center"
+        titleClassName="md:text-5xl"
       />
-      <a
-        href={calendarUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class={cn(
-          'w-full mt-4',
-          buttonVariants({ variant: 'default', size: 'lg' })
-        )}
-      >
-        <Calendar className="mr-2 size-4" />
-        {calendarLinkLabel}
-      </a>
     </div>
-  </div>
-</section>
+    <div class="flex justify-center mt-12">
+      <div class="w-full max-w-xl space-y-6 bg-card p-6 md:p-8 rounded-lg shadow cntct-anim-blog">
+        <Heading title={formTitle} className="text-center" />
+        <div class="flex flex-row items-center justify-center gap-3 w-full">
+          <MailIcon
+              className="size-5 text-muted-foreground hover:text-primary transition-colors"
+          />
+          <span class="text-sm md:text-base font-semibold text-foreground break-all">
+            {mailTitle}
+          </span>
+        </div>
+      
+        <div class="my-8 flex items-center">
+          <hr class="flex-grow border-border" />
+          <span class="mx-4 text-muted-foreground font-medium"
+            >{orSeparatorText}</span
+          >
+          <hr class="flex-grow border-border" />
+        </div>
+
+        <Heading
+          title={calendarTitle}
+          className="text-center"
+        />
+          <div class="flex flex-row items-center justify-center gap-3 w-full">
+            <PhoneIcon
+              className="size-5 text-muted-foreground hover:text-primary transition-colors"
+            />
+            <span class="text-sm md:text-base font-semibold text-foreground break-all">
+              {numTitle}
+            </span>
+        
+          </div>    
+       
+      </div>
+    </div>
+  </section>
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    function initAnimations(){
+      const cntctTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.8 } });
+      cntctTl
+      .from('.cntct-anim-title', { y: 30, opacity: 0, delay: 0.8 })
+      .from('.cntct-anim-blog', { y: 30, opacity: 0, delay: 0.8 })
+    }
+    document.addEventListener('astro:page-load', initAnimations);
+  </script>

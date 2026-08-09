@@ -18,6 +18,9 @@ type Props = {
 
 const { posts, lang } = Astro.props;
 
+// limited 3 blogs posted
+const featuredPosts = posts.slice(0, 3);
+
 const initialSearchQuery = Astro.url.searchParams.get('q') || '';
 const initialTag = Astro.url.searchParams.get('tag') || '';
 
@@ -33,6 +36,7 @@ function transformPostForClientFilter(
     title: post.data.title,
     description: post.data.description || '',
     tags: post.data.tags,
+    //tags: post.data.tags ? post.data.tags.map(tag => tag.trim().toLowerCase()) : [],
     body: post.body ?? '',
     pubDate: post.data.pubDate,
     // heroImage and readingTimeMinutes are optional in PostDataForFilter
@@ -55,15 +59,29 @@ const pageDescription = t('pageDescription');
 
 <BaseLayout {pageTitle} {pageDescription}>
   <div class="container mx-auto px-4 py-8 md:py-12">
-    <Heading title={t('title')} description={t('description')} />
-    <FilteredPostsList
+    <div class="blog-anim-title">
+      <Heading title={t('title')} description={t('description')} />
+    </div>
+   
+   {/* <FilteredPostsList
       client:load
-      allPosts={posts.map(transformPostForClientFilter)}
+      //allPosts={posts.map(transformPostForClientFilter)}
+      allPosts={featuredPosts.map(transformPostForClientFilter)}
       texts={componentTexts}
       lang={lang}
       initialSearchQuery={initialSearchQuery}
       initialTag={initialTag}
-    />
+    /> */}
+
+    <!-- On remplace le filtre par l'affichage direct des articles à la une -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      {featuredPosts.map((post) => (
+        <!-- Remplace 'PostCard' par le nom de ton composant de carte d'article -->
+          <div class="blog-anim-card">
+             <BlogPostCard post={post} lang={lang} />
+          </div>
+      ))}
+    </div>
 
     {/* Container for posts and "no posts found" message */}
     <div
@@ -71,10 +89,10 @@ const pageDescription = t('pageDescription');
       class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
     >
       {
-        posts.length > 0 ? (
-          posts.map((postEntry) => (
+        featuredPosts.length > 0 ? (
+          featuredPosts.map((postEntry) => (
             <div class="blog-post-card-wrapper" data-post-id={postEntry.id}>
-              <BlogPostCard post={postEntry} lang={lang} />
+              {/* <BlogPostCard post={postEntry} lang={lang} />  */}
             </div>
           ))
         ) : (
@@ -97,7 +115,10 @@ const pageDescription = t('pageDescription');
         filteredPostIdsAtom,
         filtersInitializedAtom,
       } from '../../../stores/blogFilterStore';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+      // const blogTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.8 } });
       const postsContainer = document.getElementById('blog-posts-container');
       const noPostsInitialMessage = document.getElementById(
         'no-posts-initial-message'
@@ -108,6 +129,17 @@ const pageDescription = t('pageDescription');
       const allPostCardWrappers = document.querySelectorAll(
         '.blog-post-card-wrapper'
       );
+
+      //blogTl.from('.blog-anim-card', { y: 30, opacity: 0, delay: 0.2 })
+
+      function initAnimations() {
+   
+        const blogTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.8 } });
+        blogTl
+          .from('.blog-anim-title', { y: 30, opacity: 0 })
+          .from('.blog-anim-card', { y: 30, opacity: 0 })
+      }
+      document.addEventListener('astro:page-load', initAnimations);
 
       function updateVisiblePosts() {
         if (!postsContainer || !noPostsFilteredMessage) return;

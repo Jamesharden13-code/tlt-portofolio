@@ -1,0 +1,151 @@
+---
+// src/components/LoadingScreen.astro
+// Écran de chargement affiché au premier chargement de page,
+// et brièvement lors des transitions de page (astro:transitions).
+---
+
+<div id="loading-screen" class="loading-screen">
+  <div id="loading-anim" class="loading-anim"></div>
+</div>
+
+<style>
+  .loading-screen {
+    position: fixed;
+    top: var(--loading-screen-offset, 0px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40; /* sous le header (voir Layout.astro), au-dessus du contenu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background, #ffffff);
+    /* background: hsl(var(--background, 0 0% 100%)); */
+    transition: opacity 0.4s ease;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .loading-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loading-anim {
+    width: 140px;
+    height: 140px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .loading-screen {
+      background: var(--background, #0a0a0a);
+      /* background: hsl(var(--background, 0 0% 4%)); */
+    }
+  }
+</style>
+
+<script>
+  // GARDE ANTI-DOUBLON : Astro ré-exécute ce <script> à chaque transition
+  // de page (astro:before-preparation / astro:after-swap). Sans cette garde,
+  // les listeners ci-dessous s'accumuleraient à chaque navigation, et
+  // plusieurs instances de Lottie tourneraient en même temps.
+  if (!(window as any).__loadingScreenInit) {
+    (window as any).__loadingScreenInit = true;
+
+    let lottieInstance: any = null;
+
+    const ensureLottieLib = async () => {
+      if ((window as any).lottie) return (window as any).lottie;
+      await new Promise<void>((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src =
+          'https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js';
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error('Impossible de charger lottie-web'));
+        document.head.appendChild(script);
+      });
+      return (window as any).lottie;
+    };
+
+    const playLoadingAnimation = async () => {
+      const container = document.getElementById('loading-anim');
+      const screen = document.getElementById('loading-screen');
+      if (!container || !screen) return;
+
+      screen.classList.remove('is-hidden');
+
+      let lottie: any;
+      try {
+        lottie = await ensureLottieLib();
+      } catch (err) {
+        console.error('[LoadingScreen] échec du chargement de lottie-web :', err);
+        return;
+      }
+
+      // Détruit systématiquement toute instance précédente ET vide le
+      // conteneur, même si `lottieInstance` a été perdu entre deux appels —
+      // c'est la double sécurité contre les doublons visuels.
+      if (lottieInstance) {
+        lottieInstance.destroy();
+        lottieInstance = null;
+      }
+      container.innerHTML = '';
+
+      const jsonPath = `${import.meta.env.BASE_URL}animations/flow-loading.json`;
+
+      lottieInstance = lottie.loadAnimation({
+        container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: jsonPath,
+      });
+
+      lottieInstance.addEventListener('data_failed', () => {
+        console.error('[LoadingScreen] le JSON n\'a pas pu être chargé depuis', jsonPath);
+      });
+    };
+
+    const hideLoadingScreen = () => {
+      const screen = document.getElementById('loading-screen');
+      screen?.classList.add('is-hidden');
+    };
+
+    const updateLoadingScreenOffset = () => {
+      const header = document.querySelector('header');
+      let offset = 0;
+      if (header && getComputedStyle(header).display !== 'none') {
+        offset = header.getBoundingClientRect().height;
+      }
+      document.documentElement.style.setProperty(
+        '--loading-screen-offset',
+        `${offset}px`
+      );
+    };
+
+    // 1) Premier chargement de la page
+    updateLoadingScreenOffset();
+    playLoadingAnimation();
+    window.addEventListener('load', () => {
+      updateLoadingScreenOffset();
+      setTimeout(hideLoadingScreen, 300);
+    });
+    window.addEventListener('resize', updateLoadingScreenOffset);
+
+    // 2) Transitions Astro (ClientRouter / View Transitions)
+    document.addEventListener('astro:before-preparation', () => {
+      updateLoadingScreenOffset();
+      document.getElementById('loading-screen')?.classList.remove('is-hidden');
+    });
+
+    document.addEventListener('astro:after-swap', () => {
+      updateLoadingScreenOffset();
+      playLoadingAnimation();
+    });
+
+    document.addEventListener('astro:page-load', () => {
+      updateLoadingScreenOffset();
+      setTimeout(hideLoadingScreen, 300);
+    });
+  }
+</script>

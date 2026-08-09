@@ -13,6 +13,7 @@ export type Language = {
   name: string;
   flag: string;
   targetUrl: string;
+  href: string;
 };
 
 type LanguageSelectorProps = {
@@ -26,21 +27,9 @@ export function LanguageSelector({
 }: LanguageSelectorProps) {
   const [isPending, startTransition] = React.useTransition();
 
-  function onSelectLanguage(targetUrl: string) {
+  function onSelectLanguage(destinationUrl: string) {
     startTransition(() => {
-      const pathname = window.location.pathname;
-
-      // Check if we're on a detail page (blog or tips)
-      const detailPageMatch = pathname.match(/^(\/en)?\/(blog|tips)\/[^\/]+/);
-
-      if (detailPageMatch) {
-        const [, langPrefix, section] = detailPageMatch;
-        // Redirect to the opposite language's index page
-        const newLangPrefix = langPrefix ? '' : '/en';
-        window.location.href = `${newLangPrefix}/${section}/`;
-      } else {
-        window.location.href = targetUrl;
-      }
+      window.location.href = destinationUrl
     });
   }
 
@@ -70,7 +59,10 @@ export function LanguageSelector({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[180px]">
-        {languages.map((lang) => (
+        {languages.map((lang) => {
+          const finalUrl = lang.href || lang.targetUrl;
+          
+          return ( 
           <DropdownMenuCheckboxItem
             key={lang.code}
             className={cn(
@@ -78,7 +70,7 @@ export function LanguageSelector({
               currentLocale === lang.code ? 'bg-accent' : ''
             )}
             checked={currentLocale === lang.code}
-            onCheckedChange={() => onSelectLanguage(lang.targetUrl)}
+            onCheckedChange={() => onSelectLanguage(finalUrl)}
             disabled={isPending}
           >
             <img
@@ -90,7 +82,8 @@ export function LanguageSelector({
             />
             {lang.name}
           </DropdownMenuCheckboxItem>
-        ))}
+        )
+    })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

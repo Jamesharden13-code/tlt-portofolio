@@ -1,3 +1,5 @@
+//import type { ImageMetadata } from 'astro';
+
 export type KeyFeature = {
   id: string; // for i18n key
   // icon?: string; // Optional: if you want to associate an icon from lucide-react or similar
@@ -6,7 +8,7 @@ export type KeyFeature = {
 export type TechnologyDetail = {
   id: string; // e.g., 'react', 'typescript'
   name: string; // e.g., 'React', 'TypeScript'
-  // category?: 'frontend' | 'backend' | 'database' | 'devops' | 'other'; // Optional: for grouping
+  // category?: 'frontend' | 'backend' | 'database' | 'devOpsAndTools' | 'other'; // Optional: for grouping
 };
 
 export type GalleryImage = {
@@ -24,6 +26,8 @@ export type ProjectData = {
   codeUrl?: string; // Link to source code, keep as is
   tags: Array<string>; // Existing tags, can be used for quick filtering or display
 
+  progression?: string;
+  evolution?: string;
   // New fields for detailed project page
   category?: string; // New: e.g., 'Web Application', 'Mobile App', 'Data Science'. Will be translated.
   date: string; // New: e.g., '2023-06-15', 'Jan 2023 - Mar 2024'. Will be translated.
@@ -49,15 +53,20 @@ export type TranslatedGalleryImage = GalleryImage & {
   // src is already ImageMetadata
 };
 
-export type TranslatedProject = ProjectData & {
+//export type TranslatedProject = ProjectData & {
+export type TranslatedProject = Omit<ProjectData, 'imageUrl'> & {
   // Existing translated fields
   title: string; // Main title of the project
+  imageUrl: ImageMetadata | string;
   description: string; // Short description for cards/previews
   imageAltText: string; // Alt text for the main project image
-
+  progressionText?: string;
+  //progression?: string;
+  evolutionText?: string;
   // New translated fields for the detailed page
   categoryText?: string; // Translated category
   dateText?: string; // Translated date display string
+  timeProject?: string;
   detailedDescription?: string; // Longer description for the project detail page
   galleryImagesTranslated?: Array<{
     id: string;
@@ -68,6 +77,7 @@ export type TranslatedProject = ProjectData & {
   keyFeaturesTranslated?: Array<TranslatedKeyFeature>; // Key features with translated titles/descriptions
   challenges?: string; // Description of challenges faced (translated)
   learnings?: string; // Key learnings from the project (translated)
+  
   // technologiesUsed.name will be translated if needed, or could be kept as is if they are proper names
 };
 
