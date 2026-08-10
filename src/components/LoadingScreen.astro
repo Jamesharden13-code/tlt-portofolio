@@ -15,12 +15,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 40; /* sous le header (voir Layout.astro), au-dessus du contenu */
+    z-index: 40;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--background, #ffffff);
-    /* background: hsl(var(--background, 0 0% 100%)); */
     transition: opacity 0.4s ease;
     opacity: 1;
     pointer-events: none;
@@ -45,10 +44,6 @@
 </style>
 
 <script>
-  // GARDE ANTI-DOUBLON : Astro ré-exécute ce <script> à chaque transition
-  // de page (astro:before-preparation / astro:after-swap). Sans cette garde,
-  // les listeners ci-dessous s'accumuleraient à chaque navigation, et
-  // plusieurs instances de Lottie tourneraient en même temps.
   if (!(window as any).__loadingScreenInit) {
     (window as any).__loadingScreenInit = true;
 
@@ -81,10 +76,6 @@
         console.error('[LoadingScreen] échec du chargement de lottie-web :', err);
         return;
       }
-
-      // Détruit systématiquement toute instance précédente ET vide le
-      // conteneur, même si `lottieInstance` a été perdu entre deux appels —
-      // c'est la double sécurité contre les doublons visuels.
       if (lottieInstance) {
         lottieInstance.destroy();
         lottieInstance = null;
@@ -123,7 +114,6 @@
       );
     };
 
-    // 1) Premier chargement de la page
     updateLoadingScreenOffset();
     playLoadingAnimation();
     window.addEventListener('load', () => {
@@ -132,7 +122,6 @@
     });
     window.addEventListener('resize', updateLoadingScreenOffset);
 
-    // 2) Transitions Astro (ClientRouter / View Transitions)
     document.addEventListener('astro:before-preparation', () => {
       updateLoadingScreenOffset();
       document.getElementById('loading-screen')?.classList.remove('is-hidden');

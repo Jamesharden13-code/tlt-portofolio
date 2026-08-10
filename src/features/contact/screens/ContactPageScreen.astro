@@ -59,11 +59,11 @@
     <div class="flex justify-center mt-12">
       <div class="w-full max-w-xl space-y-6 bg-card p-6 md:p-8 rounded-lg shadow cntct-anim-blog">
         <Heading title={formTitle} className="text-center" />
-        <div class="flex flex-row items-center justify-center gap-3 w-full">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 w-full text-center">
           <MailIcon
-              className="size-5 text-muted-foreground hover:text-primary transition-colors"
+              className="size-5 text-muted-foreground hover:text-primary transition-colors shrink-0"
           />
-          <span class="text-sm md:text-base font-semibold text-foreground break-all">
+          <span class="text-sm md:text-base font-semibold text-foreground break-all min-w-0 max-w-full">
             {mailTitle}
           </span>
         </div>

@@ -106,7 +106,6 @@ const techIconComponents: Record<string, IconType> = {
   amazonservices: SiAmazon,
 };
 
-//import type { Technology } from '@/data/skills'; // Import the Technology type
 import type { Technology } from '@/features/projects';
 
 export type Props = {
@@ -149,11 +148,7 @@ const IconComponent = iconComponents[iconName];
   </CardHeader>
 
   <CardContent className="flex-grow pt-2 pb-3">
-    {/* flex-grow pushes footer down, padding adjusted */}
-    {
-      /* Description text indented to align with title. Calculation: icon div's mr-4 (1rem) + icon span's effective width (approx 2.25rem) = 3.25rem */
-    }
-    <p class="text-sm text-muted-foreground line-clamp-3 pl-[3.25rem]">
+    <p class="text-sm text-muted-foreground line-clamp-none sm:line-clamp-4 pl-[3.25rem]">
       {description}
     </p>
   </CardContent>
